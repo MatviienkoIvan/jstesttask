@@ -9,31 +9,29 @@ document.body.onload = function(){
         var color = getRandomColor();
         var rndWidth = getRandomWidth()
         interval = setInterval(function(){
-            requestAnimationFrame(function() {  
-                
-                    var canvas = document.getElementById('canvas');
-                    var ctx = canvas.getContext('2d');  
-                    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
-                    ctx.fillRect(rndWidth, currentPos, 20, 20);
-                    ctx.fillStyle = color;
-                    currentPos += 4;
-                    canvas.addEventListener('click', function(e){
-                        var clickX = e.pageX - canvas.offsetLeft;
-                        var clickY = e.pageY - canvas.offsetTop;
-                        if(clickX > rndWidth && clickX < (rndWidth+20) && clickY > currentPos && clickY < (currentPos+20)){
-                            scoreParam += 1
-                            score.textContent = scoreParam;  
-                            animateStop();
-                        }
-                    })
-                    if(currentPos >= canvas.clientHeight) {
-                        currentPos = 0;
+            requestAnimationFrame(function() {                  
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');  
+                ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
+                ctx.fillRect(rndWidth, currentPos, 20, 20);
+                ctx.fillStyle = color;
+                currentPos += 4;
+                canvas.addEventListener('click', function(e){
+                    var clickX = e.pageX - canvas.offsetLeft;
+                    var clickY = e.pageY - canvas.offsetTop;
+                    if(clickX > rndWidth && clickX < (rndWidth+20) && clickY > currentPos && clickY < (currentPos+20)){
                         scoreParam += 1
-                        score.textContent = scoreParam;    
-                        color = getRandomColor()
-                        rndWidth = getRandomWidth()
+                        score.textContent = scoreParam;  
+                        animateStop();
                     }
-                
+                })
+                if(currentPos >= canvas.clientHeight) {
+                    currentPos = 0;
+                    scoreParam += 1
+                    score.textContent = scoreParam;    
+                    color = getRandomColor()
+                    rndWidth = getRandomWidth()
+                }
             })
         }, 50)
     })

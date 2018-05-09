@@ -1,18 +1,16 @@
 document.body.onload = function(){
-    var paramAnim = true;
     var score = document.getElementById("score")
     var scoreParam = 0;
     var interval;     
     var currentPos = 0;
     
     var start = document.getElementById('start').addEventListener('click', function(){
-        this.setAttribute("disabled", "disabled")            
-        paramAnim = true; 
+        this.setAttribute("disabled", "disabled")   
         var color = getRandomColor();
         var rndWidth = getRandomWidth()
         interval = setInterval(function(){
             requestAnimationFrame(function() {  
-                if(paramAnim == true){
+                
                     var canvas = document.getElementById('canvas');
                     var ctx = canvas.getContext('2d');  
                     ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
@@ -35,12 +33,11 @@ document.body.onload = function(){
                         color = getRandomColor()
                         rndWidth = getRandomWidth()
                     }
-                }
+                
             })
         }, 50)
     })
     var stop = document.getElementById('stop').addEventListener('click', function(){
-        paramAnim = false;
         score.textContent = "0";
         scoreParam = 0;
         animateStop();

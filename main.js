@@ -7,30 +7,36 @@ document.body.onload = function(){
     var start = document.getElementById('start').addEventListener('click', function(){
         this.setAttribute("disabled", "disabled")   
         var color = getRandomColor();
-        var rndWidth = getRandomWidth()
+        var rndWidth = getRandomWidth(0, (canvas.clientWidth-20))
+        var speed =  getRandomWidth(0.1, 8)
         interval = setInterval(function(){
             requestAnimationFrame(function() {                  
                 var canvas = document.getElementById('canvas');
                 var ctx = canvas.getContext('2d');  
                 ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
-                ctx.fillRect(rndWidth, currentPos, 20, 20);
                 ctx.fillStyle = color;
-                currentPos += 1;
+                ctx.fillRect(rndWidth, currentPos, 20, 20);
+                currentPos += speed;
                 canvas.addEventListener('click', function(e){
                     var clickX = e.pageX - canvas.offsetLeft;
                     var clickY = e.pageY - canvas.offsetTop;
                     if(clickX > rndWidth && clickX < (rndWidth+20) && clickY > currentPos && clickY < (currentPos+20)){
-                        scoreParam += 1
+                        scoreParam += 1                        
+                        currentPos = 0;
                         score.textContent = scoreParam;  
-                        animateStop();
+                        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);     
+                        color = getRandomColor();
+                        rndWidth = getRandomWidth(0, (canvas.clientWidth-20));
+                        speed = getRandomWidth(0.1, 8);
                     }
                 })
                 if(currentPos >= canvas.clientHeight) {
                     currentPos = 0;
                     scoreParam += 1
                     score.textContent = scoreParam;    
-                    color = getRandomColor()
-                    rndWidth = getRandomWidth()
+                    color = getRandomColor();
+                    rndWidth = getRandomWidth(0, (canvas.clientWidth-20));
+                    speed = getRandomWidth(0.1, 8);
                 }
             })
         }, 50)
@@ -54,9 +60,8 @@ document.body.onload = function(){
         return color;
     }
     
-    function getRandomWidth() {      
-        var rand = 0 + Math.random() * ((canvas.clientWidth-20) + 1 - 0);
-        rand = Math.floor(rand);
+    function getRandomWidth(param1, param2) {      
+        var rand = param1 + Math.random() * (param2 + 1 - param1);
         return rand;
     }
     

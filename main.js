@@ -15,7 +15,7 @@ document.body.onload = function(){
                 ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
                 ctx.fillRect(rndWidth, currentPos, 20, 20);
                 ctx.fillStyle = color;
-                currentPos += 4;
+                currentPos += 1;
                 canvas.addEventListener('click', function(e){
                     var clickX = e.pageX - canvas.offsetLeft;
                     var clickY = e.pageY - canvas.offsetTop;
